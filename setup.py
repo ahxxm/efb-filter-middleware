@@ -39,9 +39,10 @@ setup(
         "Topic :: Utilities"
     ],
     install_requires=[
-        "ehforwarderbot"
+        "ehforwarderbot",
+        "pyyaml"
     ],
     entry_points={
-        "ehforwarderbot.middleware": "zhangzhishan.filter = efb_filter_middleware:FilterMiddleware"
+        "ehforwarderbot.middleware": "ahxxm.filter = efb_filter_middleware:FilterMiddleware"
     }
 )

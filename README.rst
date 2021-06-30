@@ -1,64 +1,27 @@
 A filter middleware for EFB
 ==============
-A filter middleware for EFB can help you only receive messages from persons and groups you want.
+A filter middleware for EFB to help block messages from unwanted WeChat senders.
 
 Install
 -----------------
-install using pip3::
+install using pip::
     
-    pip3 install git+https://github.com/zhangzhishan/efb-filter-middleware
+    pip install -U git+https://github.com/ahxxm/efb-filter-middleware
 
 Configuration
 -----------------
-config files is located in ``~\.ehforwarderbot\profiles\default\zhangzhishan.filter\config.yaml``, a sample config files::
+append middleware id ``ahxxm.filter`` to ``~/.ehforwarderbot/profiles/default/config.yaml``::
 
-    version: 0.1
-    match_mode: fuzz
-    work_mode:
-        - black_persons
-        - white_groups
-        - white_publics
+    master_channel: blueset.telegram
+    slave_channels:
+      - blueset.wechat
+    middlewares:
+      - ahxxm.filter
 
+config file is located in ``~/.ehforwarderbot/profiles/default/ahxxm.filter/config.yaml``, a sample config file::
 
-    white_publics:
-        - 银行
-    
-    black_persons:
-        - enemy
+    block_names:
+      - 招商银行
+      - 中国电信营业厅
 
-    white_persons:
-        - john
-        - jack
-        - You
-        - 李白
-
-    white_groups:
-        - family
-
-``version`` is used to monitor configuration change in runtime, it must be changed when changing the configuration. It is a ``float`` number.
-
-There are six different ``work_mode``:
-
-- black_persons
-- white_persons
-- black_publics
-- white_publics
-- black_groups
-- white_groups
-
-``white_persons`` means the persons you want to receive messages from, ``white_groups`` means groups you want to receive from, ``white_publics`` means subscription account you want to receive from.
-
-There are two matching mode:
-
-- ``fuzz`` This match pattern is a substring matching, which means if you have ``jack`` in your ``white_persons`` setting, ``jackson`` is also matched.
-- ``exact`` This match pattern only matches when the whole word is the same. 
-
-Notice
------------------
-
-- Case sensitive
-- All messages from you will be forwarded.
-
-TODO
------
-
+the middleware implemented hot reloading, updates to ``config.yaml`` will start to apply on next message arrival.
