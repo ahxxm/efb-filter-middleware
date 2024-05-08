@@ -47,11 +47,11 @@ class FilterMiddleware(Middleware):
             os.makedirs(storage_path)
 
         self.logger = logging.getLogger(self.middleware_id)
-        hdlr = logging.FileHandler('root/.ehforwarderbot/profiles/default/ahxxm.filter/filter.log', encoding="UTF-8")
+        hdlr = logging.FileHandler(os.path.join(storage_path, 'filter.log'), encoding="UTF-8")
         formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
         hdlr.setFormatter(formatter)
         self.logger.addHandler(hdlr)
-        self.logger.setLevel(logging.ERROR)
+        self.logger.setLevel(logging.DEBUG)
 
     def process_message(self, message: Message) -> Optional[Message]:
         # ignore message sent from self
