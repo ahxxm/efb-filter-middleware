@@ -31,7 +31,7 @@ class FilterMiddleware(Middleware):
     def _reload_config(self):
         config_path = utils.get_config_path(self.middleware_id)
         with open(config_path, encoding="UTF-8") as f:
-            self.config = yaml.full_load(f)
+            self.config = yaml.full_load(open(config_path, encoding ="UTF-8"))
 
     def __init__(self, instance_id: str = None):
         super().__init__(instance_id)
