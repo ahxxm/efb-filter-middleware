@@ -47,7 +47,7 @@ class FilterMiddleware(Middleware):
             os.makedirs(storage_path)
 
         self.logger = logging.getLogger(self.middleware_id)
-        hdlr = logging.FileHandler('./zhangzhishan.filter.log', encoding="UTF-8")
+        hdlr = logging.FileHandler('~/.ehforwarderbot/profiles/default/ahxxm.filter/filter.log', encoding="UTF-8")
         formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
         hdlr.setFormatter(formatter)
         self.logger.addHandler(hdlr)
