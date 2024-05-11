@@ -31,7 +31,7 @@ class FilterMiddleware(Middleware):
     def _reload_config(self):
         config_path = utils.get_config_path(self.middleware_id)
         with open(config_path, encoding="UTF-8") as f:
-            self.config = yaml.full_load(f)
+            self.config = yaml.full_load(open(config_path, encoding ="UTF-8"))
 
     def __init__(self, instance_id: str = None):
         super().__init__(instance_id)
@@ -47,11 +47,11 @@ class FilterMiddleware(Middleware):
             os.makedirs(storage_path)
 
         self.logger = logging.getLogger(self.middleware_id)
-        hdlr = logging.FileHandler('./zhangzhishan.filter.log', encoding="UTF-8")
+        hdlr = logging.FileHandler(os.path.join(storage_path, 'filter.log'), encoding="UTF-8")
         formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
         hdlr.setFormatter(formatter)
         self.logger.addHandler(hdlr)
-        self.logger.setLevel(logging.ERROR)
+        self.logger.setLevel(logging.DEBUG)
 
     def process_message(self, message: Message) -> Optional[Message]:
         # ignore message sent from self
